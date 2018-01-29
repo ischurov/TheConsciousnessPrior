@@ -14,7 +14,7 @@ import numpy as np
 
 class Billiards(object):
     """The Billiards class."""
-    def __init__(self, T=128, n=2, r=None, m=None, eps=0.5, SIZE=10):
+    def __init__(self, T=128, n=2, r=None, m=None, eps=0.5, SIZE=10, vnorm=2):
         """The Billiards Environment.
 
         # Parameters
@@ -30,6 +30,8 @@ class Billiards(object):
 
             SIZE: int
                 the size of bounding box is SIZE x SIZE
+
+            vnorm: norm of initial velocity
         """
         self.T = T
         self.SIZE = SIZE
@@ -40,7 +42,8 @@ class Billiards(object):
 
         self.X = np.zeros((self.T, self.n, 2), dtype=np.float)
         self.v = np.random.randn(self.n, 2)
-        self.v /= self.norm(self.v)*0.5
+        self.v /= self.norm(self.v) 
+        self.v *= vnorm
 
         self.x = self.config()
 
